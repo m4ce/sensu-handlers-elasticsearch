@@ -47,7 +47,8 @@ class HandlerElasticsearch < Sensu::Handler
     }
 
     # interpolate %Y, %m and %d with today's date
-    index = config[:index] % {:Y => Time.now.year, :m => Time.now.month, :d => Time.now.day}
+    now = Time.now
+    index = config[:index] % {:Y => now.strftime('%Y'), :m => now.strftime('%m'), :d => now.strftime('%d')}
 
     uri = URI("#{config[:url]}/#{index}/#{config[:type]}/#{@event['id']}")
     http = Net::HTTP.new(uri.host, uri.port)
