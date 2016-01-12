@@ -16,10 +16,10 @@ class HandlerElasticsearch < Sensu::Handler
          :default => "http://localhost:9200"
 
   option :index,
-         :description => "Elasticsearch index (default: sensu)",
+         :description => "Elasticsearch index (default: sensu-%{Y}.%{m}.%{d})",
          :short => "-i <INDEX>",
          :long => "--index <INDEX>",
-         :default => "sensu"
+         :default => "sensu-%{Y}.%{m}.%{d}"
 
   option :type,
          :description => "Elasticsearch index type (default: handler)",
@@ -46,7 +46,10 @@ class HandlerElasticsearch < Sensu::Handler
       }
     }
 
-    uri = URI("#{config[:url]}/#{config[:index]}/#{config[:type]}/#{@event['id']}")
+    # interpolate %Y, %m and %d with today's date
+    index = config[:index] % {:Y => Time.now.year, :m => Time.now.month, :d => Time.now.day}
+
+    uri = URI("#{config[:url]}/#{index}/#{config[:type]}/#{@event['id']}")
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.path, "Content-Type" => "application/json")
     request.body = JSON.dump(event)
