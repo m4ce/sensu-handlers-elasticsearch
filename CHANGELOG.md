@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [0.0.3] - 2016-01-12
+### Added
+- Using strftime for better formatting
+
 ## [0.0.2] - 2016-01-12
 ### Added
 - Adding support for date interpolation in the ES index
