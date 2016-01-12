@@ -8,7 +8,7 @@ The handler accepts the following command line options:
 
 ```
 Usage: handler-elasticsearch.rb (options)
-    -i, --index <INDEX>              Elasticsearch index (default: sensu)
+    -i, --index <INDEX>              Elasticsearch index (default: sensu-%{Y}.%{m}.%{d})
     -t, --type <TYPE>                Elasticsearch index type (default: handler)
     -u, --url <URL>                  Elasticsearch URL
 ```
